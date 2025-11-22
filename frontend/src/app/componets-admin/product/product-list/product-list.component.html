@@ -1,0 +1,127 @@
+<!-- Tiêu đề và thanh tìm kiếm -->
+<div class="header">
+  <h2>Quản lý danh mục sản phẩm</h2>
+
+  <form class="heheadmin" (submit)="onSearch(); $event.preventDefault()">
+    <input placeholder="Tìm kiếm danh mục sản phẩm" type="text" name="keyword" [(ngModel)]="keyword"
+      (ngModelChange)="onSearch()" />
+    <a href="javascript:void(0)">
+      <i class="lni lni-search-alt"></i>
+    </a>
+  </form>
+</div>
+
+<br />
+
+<!-- Filters: Category / Type / Rider / Price / Sort -->
+<div class="row mb-3">
+  <div class="col-md-2">
+    <label class="form-label">Danh mục</label>
+    <select class="form-control" [(ngModel)]="categoryFilter" (ngModelChange)="onFilterChange()">
+      <option value="">-- Tất cả --</option>
+      <option *ngFor="let c of categories" [value]="c._id">{{ c.nameCategory }}</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Loại</label>
+    <select class="form-control" [(ngModel)]="typeFilter" (ngModelChange)="onFilterChange()">
+      <option value="">-- Tất cả --</option>
+      <option *ngFor="let t of types" [value]="t._id">{{ t.nameType }}</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Tay đua</label>
+    <select class="form-control" [(ngModel)]="riderFilter" (ngModelChange)="onFilterChange()">
+      <option value="">-- Tất cả --</option>
+      <option *ngFor="let r of riders" [value]="r._id">{{ r.nameRider }}</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Giá từ</label>
+    <input type="number" class="form-control" [(ngModel)]="minPrice" (ngModelChange)="onFilterChange()" placeholder="Min" min="0" />
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Đến</label>
+    <input type="number" class="form-control" [(ngModel)]="maxPrice" (ngModelChange)="onFilterChange()" placeholder="Max" min="0" />
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Sắp xếp</label>
+    <select class="form-control" [(ngModel)]="sortOption" (ngModelChange)="applySort()">
+      <option value="">-- Mặc định --</option>
+      <option value="price_asc">Giá (tăng dần)</option>
+      <option value="price_desc">Giá (giảm dần)</option>
+      <option value="stock_asc">Tồn kho (tăng dần)</option>
+      <option value="stock_desc">Tồn kho (giảm dần)</option>
+    </select>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-12 d-flex justify-content-end">
+    <button class="btn btn-sm btn-secondary me-2" (click)="resetFilters()">Reset</button>
+  </div>
+</div>
+
+<!-- Bảng danh mục sản phẩm -->
+<div class="product-table">
+  <table class="table table-striped table-secondary">
+    <thead>
+      <tr>
+        <th style="width: 4%">ID</th>
+        <th style="width: 23%">Tên sản phẩm</th>
+        <th style="width: 8%">Giá</th>
+        <th style="width: 12%">Ảnh</th>
+        <th style="width: 8%">Tồn kho</th>
+        <th style="width: 14%">Size</th>
+
+        <th style="width: 10%">Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="
+          let product of filteredProducts | paginate : { itemsPerPage: 10, currentPage: p };
+          index as i
+        ">
+        <td>{{ i + 1 }}</td>
+        <td>
+          {{ product.nameProduct }}
+          <span *ngIf="hasSizes(product)" class="badge bg-success ms-2">Size</span>
+        </td>
+        <td>{{ product.priceProduct | number }}</td>
+        <td>
+          <img *ngIf="product.imagesProduct?.length" [src]="product.imagesProduct[0]" alt="" width="80px" />
+        </td>
+        <td>{{ product.stockProduct }}</td>
+        <td>
+          <ng-container *ngIf="product.metadata?.size && product.metadata.size.length > 0; else accessory">
+            <ng-container *ngFor="let s of getFirstSizes(product, 3)">
+              <span class="badge bg-primary me-1">{{ s.name }} ({{ s.stock }})</span>
+            </ng-container>
+            <span *ngIf="getRemainingSizeCount(product, 3) > 0" class="text-muted">+{{ getRemainingSizeCount(product, 3) }}</span>
+          </ng-container>
+          <ng-template #accessory>Phụ kiện</ng-template>
+        </td>
+
+        <td>
+          <a [routerLink]="['/admin/product-edit/', product._id]" class="btn btn-sm btn-outline-warning me-2"
+            title="Chỉnh sửa">
+            <i class="fas fa-edit"></i>
+          </a>
+          <button (click)="onDelete(product._id)" class="btn btn-sm btn-outline-danger" title="Xoá">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Pagination dưới bảng -->
+<div class="pagination">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

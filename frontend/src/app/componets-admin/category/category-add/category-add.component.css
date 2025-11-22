@@ -1,0 +1,10 @@
+.category-popup {
+  position: fixed;
+  top: 39%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+
+}

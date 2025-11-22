@@ -1,0 +1,176 @@
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+
+   .container {
+  width: 80%;
+  max-width: 1100px;
+  margin: 0 auto;               /* ⭐ đưa toàn bộ ra giữa */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* ⭐ 2 cột bằng nhau */
+  gap: 40px;
+  align-items: start;            /* ⭐ căn đầu cột */
+}
+
+    h2, h3 {
+      font-weight: 600;
+    }
+
+    .left-section input,
+    .left-section select,
+    .left-section textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #dcdcdc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    .row {
+      display: flex;
+      gap: 15px;
+    }
+    .row > div {
+      flex: 1;
+    }
+
+    textarea {
+      height: 120px;
+    }
+
+    /* Shipping Method */
+    .shipping-box {
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 15px;
+    }
+
+    /* Ẩn radio */
+    .shipping-option input[type="radio"] {
+      display: none;
+    }
+
+    .shipping-option {
+      display: flex;
+      align-items: center;
+      padding: 16px 18px;
+      border: 1px solid #dcdcdc;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: 0.25s ease;
+      background: #fafafa;
+      gap: 16px;
+    }
+
+    .shipping-option:hover {
+      border-color: #000;
+      background: #f1f1f1;
+    }
+
+    /* Khi radio được chọn */
+    .shipping-option input[type="radio"]:checked + .shipping-content {
+      border-color: #000;
+      background: #eaeaea;
+    }
+
+    .shipping-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .shipping-content img {
+      width: 42px;
+      height: 42px;
+    }
+
+    .shipping-info a {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+      text-decoration: none;
+    }
+
+    /* Right Section */
+    .right-section {
+      padding-left: 40px;
+      border-left: 1px solid #e5e5e5;
+    }
+
+    .product-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .product-item img {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .summary-list {
+      margin-top: 20px;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+      font-size: 15px;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .voucher {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .voucher input {
+      flex: 1;
+    }
+
+    .apply-btn {
+      padding: 8px 14px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .pay-btn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 25px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pay-btn:hover {
+  background: #333;
+}

@@ -1,0 +1,117 @@
+<section class="product-detail">
+  <div class="product-left" *ngIf="productImages && productImages.length > 0">
+    <div class="thumbs">
+      <img *ngFor="let img of productImages; let i = index" [src]="img" [class.active]="i === currentImageIndex"
+        (click)="selectImage(i)" alt="{{product.nameProduct}}" />
+    </div>
+
+    <div class="main-image">
+      <button class="arrow left" (click)="prevImage()">&#10094;</button>
+      <img [src]="productImages[currentImageIndex]" alt="{{ product.nameProduct }}">
+      <button class="arrow right" (click)="nextImage()">&#10095;</button>
+    </div>
+  </div>
+
+
+
+  <div class="product-right">
+    <h2>{{product.nameProduct}}</h2>
+    <p class="stock">In Stock</p>
+    <p class="price">Your Price: {{product.priceProduct | number:'1.0-0'}} đ</p>
+
+    <div class="size-box">
+      <div class="size-header">
+        <p>Size:</p>
+        <button class="size-chart" onclick="openModal()">Size Chart</button>
+      </div>
+      <div class="size-options">
+        <button *ngFor="let s of product.metadata?.size" (click)="selectSize(s)" [disabled]="s.stock === 0"
+          [class.active]="selectedSize?.name === s.name">
+          {{ s.name }}
+        </button>
+      </div>
+    </div>
+
+    <div class="quantity-box" *ngIf="selectedSize">
+      <p>Quantity:</p>
+      <select [(ngModel)]="selectedQuantity">
+        <option *ngFor="let q of availableQuantities" [value]="q">{{ q }}</option>
+      </select>
+    </div>
+    <p *ngIf="!selectedSize" style="color: gray;">
+      👕 Vui lòng chọn size trước khi chọn số lượng
+    </p>
+
+    <button class="add-cart" (click)="addToCart()">
+      Add to Cart
+    </button>
+
+
+    <!-- Dropdown Sections -->
+    <div class="dropdown">
+      <div class="drop-header">
+        <h4>Shipping</h4>
+        <span class="toggle">+</span>
+      </div>
+      <div class="drop-content">
+        <ul>
+          <li>This item will ship within 1 business day.</li>
+          <li>Please proceed to checkout for shipping options and additional transit times.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <div class="drop-header">
+        <h4>Details</h4>
+        <span class="toggle">+</span>
+      </div>
+      <div class="drop-content">
+        <ul>
+          <li>Product ID: {{product._id}}</li>
+          <li>Country of origin: China</li>
+          <li>Long sleeve</li>
+          <li>Full Zip</li>
+          <li>Officially licensed</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <div class="drop-header">
+        <h4>Description</h4>
+        <span class="toggle">+</span>
+      </div>
+      <div class="drop-content">
+        <p>{{product.descriptionProduct}}</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Size Chart Modal -->
+<div id="sizeModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h4>Size</h4> <br>
+    <img src="/public/image/sizeao.jpg" alt="Size Chart">
+  </div>
+</div>
+
+<section class="product-slider" *ngIf="relatedProducts.length > 0">
+  <div class="slider-header">
+    <h2>You May Also Like</h2>
+    <a routerLink="/all-product" class="view-all">VIEW ALL</a>
+  </div>
+
+  <div class="slider-container">
+    <div class="slider-track">
+      <a *ngFor="let item of relatedProducts" [routerLink]="['/product-detail', item._id]" class="product-item">
+        <img [src]="item.imagesProduct && item.imagesProduct.length ? item.imagesProduct[0] : ''" alt="{{ item.nameProduct }}">
+        <p class="price">{{ item.priceProduct | number:'1.0-0' }} đ</p>
+        <p>{{ item.nameProduct }}</p>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+{
+    "openai": {
+      "apiKey": "${OPENAI_API_KEY}",
+      "model": "gpt-4",
+      "inlineSuggestions": true,
+      "maxTokens": 150
+    }
+  }

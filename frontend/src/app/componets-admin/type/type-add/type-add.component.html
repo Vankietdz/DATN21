@@ -1,0 +1,47 @@
+<section class="middle">
+  <div class="container admin-content" id="main">
+    <div id="brand_list" class="listnhasx">
+      <h2>Thêm loại</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="typeForm" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="nameType" class="form-label">Tên loại</label>
+          <input
+            type="text"
+            id="nameType"
+            formControlName="nameType"
+            class="form-control"
+            placeholder="Nhập tên loại (tối thiểu 6 ký tự)"
+            [class.is-invalid]="typeForm.get('nameType')?.invalid && typeForm.get('nameType')?.touched"
+          />
+          <div *ngIf="typeForm.get('nameType')?.errors?.['minlength'] && typeForm.get('nameType')?.touched">
+            <div class="text-danger">Tên loại phải có ít nhất 6 ký tự.</div>
+          </div>
+          <div *ngIf="typeForm.get('nameType')?.errors?.['required'] && typeForm.get('nameType')?.touched">
+            <div class="text-danger">Tên loại không được để trống.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="imageType" class="form-label">Ảnh loại</label>
+          <input
+            type="file"
+            id="imageType"
+            accept="image/*"
+            class="form-control"
+            (change)="onFileSelected($event)"
+          />
+          <div *ngIf="typeForm.get('imageType')?.errors?.['required'] && typeForm.get('imageType')?.touched">
+            <div class="text-danger">Vui lòng chọn ảnh loại.</div>
+          </div>
+          <div *ngIf="imagePreview" class="mt-2">
+            <img [src]="imagePreview" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px;">
+          </div>
+        </div>
+
+        <button id="btn" class="btn btn-primary px-3" type="submit" [disabled]="typeForm.invalid || isLoading">
+          {{ isLoading ? 'Đang thêm...' : 'Thêm' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

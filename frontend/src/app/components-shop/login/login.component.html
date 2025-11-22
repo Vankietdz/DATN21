@@ -1,0 +1,64 @@
+<body>
+
+<div class="background"></div>
+
+<header class="top-bar">
+  <div class="top-links">
+    <a routerLink="/" class="back">BACK</a>
+    <div class="lang">ENGLISH ▼</div>
+  </div>
+</header>
+
+<div class="login-container">
+  <img src="/public/image/logo.svg" alt="MotoGP" class="logo">
+
+  <div class="form-box">
+    <div class="tabs">
+      <a class="tab" routerLink="/register" routerLinkActive="active">REGISTER</a>
+      <a class="tab" routerLink="/login" routerLinkActive="active">LOGIN</a>
+    </div>
+
+    <div class="social-login">
+      <button class="google">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/google.svg" width="25px">
+        Sign in with Google
+      </button>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <label>Email</label>
+      <input type="email" formControlName="email" class="form-control" placeholder="Enter your email">
+      <div class="text-danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        Please enter a valid email address
+      </div>
+
+      <label>Password</label>
+      <div class="password-box">
+        <input type="password" formControlName="password" id="password" class="form-control" placeholder="Enter your password">
+        <span class="show" (click)="togglePassword('password')">show</span>
+      </div>
+      <div class="text-danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Password must be at least 6 characters
+      </div>
+
+      <a routerLink="/forgot-password" class="forgot">Forgot password?</a>
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid || isLoading">
+        {{ isLoading ? 'Đang đăng nhập...' : 'Login' }}
+      </button>
+    </form>
+  </div>
+
+  <p class="footer-text">AN ACCOUNT FOR RACING TOGETHER</p>
+
+  <div class="devices">
+    <div class="device"></div>
+    <div class="device"></div>
+    <div class="device"></div>
+    <div class="device"></div>
+  </div>
+</div>
+
+<footer>
+  © 2025 Dorna Sports. All rights reserved.
+</footer>
+</body>

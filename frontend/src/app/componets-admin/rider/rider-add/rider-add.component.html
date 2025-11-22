@@ -1,0 +1,48 @@
+<section class="middle">
+  <div class="container admin-content" id="main">
+    <div id="brand_list" class="listnhasx">
+      <h2>Thêm tay đua</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="riderForm" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="nameRider" class="form-label">Tên tay đua</label>
+          <input
+            type="text"
+            id="nameRider"
+            formControlName="nameRider"
+            class="form-control"
+            placeholder="Nhập tên tay đua (tối thiểu 6 ký tự)"
+            [class.is-invalid]="riderForm.get('nameRider')?.invalid && riderForm.get('nameRider')?.touched"
+          />
+          <div *ngIf="riderForm.get('nameRider')?.errors?.['minlength'] && riderForm.get('nameRider')?.touched">
+            <div class="text-danger">Tên tay đua phải có ít nhất 6 ký tự.</div>
+          </div>
+          <div *ngIf="riderForm.get('nameRider')?.errors?.['required'] && riderForm.get('nameRider')?.touched">
+            <div class="text-danger">Tên tay đua không được để trống.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="imageRider" class="form-label">Ảnh tay đua</label>
+          <input
+            type="file"
+            id="imageRider"
+            accept="image/*"
+            class="form-control"
+            (change)="onFileSelected($event)"
+          />
+          <div *ngIf="riderForm.get('imageRider')?.errors?.['required'] && riderForm.get('imageRider')?.touched">
+            <div class="text-danger">Vui lòng chọn ảnh tay đua.</div>
+          </div>
+          <div *ngIf="imagePreview" class="mt-2">
+            <img [src]="imagePreview" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px;">
+          </div>
+        </div>
+
+        <button id="btn" class="btn btn-primary px-3" type="submit" [disabled]="riderForm.invalid || isLoading">
+          {{ isLoading ? 'Đang thêm...' : 'Thêm' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+

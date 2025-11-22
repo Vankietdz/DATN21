@@ -1,0 +1,49 @@
+<br>
+<!-- banner -->
+<section class="hero">
+  <img src="/public/image/bannerstore1.jpg" alt="Banner" />
+</section>
+<!-- sale -->
+<section class="hero">
+  <img src="/public/image/bannersale.webp" alt="Banner" />
+</section>
+
+<!-- 2 ảnh ngang -->
+<section class="product-showcase">
+  <div class="product-card">
+    <img src="/public/image/headwear.jpg" alt="Headwear">
+    <h2>HEADWEAR</h2>
+    <p>Top off your look with official MotoGP™ caps, beanies, and hats.</p>
+    <button class="shop-btn">SHOP NOW</button>
+  </div>
+
+  <div class="product-card">
+    <img src="public/image/accessirues.jpg" alt="Accessories">
+    <h2>ACCESSORIES</h2>
+    <p>Complete your MotoGP™ collection with exclusive accessories.</p>
+    <button class="shop-btn">SHOP NOW</button>
+  </div>
+</section>
+
+<!-- product -->
+<section class="product-slider">
+  <div class="slider-header">
+    <h2>Clearance</h2>
+    <a href="#" class="view-all">VIEW ALL</a>
+  </div>
+
+  <div class="slider-container">
+    <button class="slider-btn prev">❮</button>
+
+    <div class="slider-track">
+      <a *ngFor="let item of products" class="product-item" [routerLink]="['/product-detail', item._id]" routerLinkActive="router-link-active" >
+        <img [src]="item.imagesProduct && item.imagesProduct.length ? item.imagesProduct[0] : ''" alt="{{item.nameProduct}}">
+        <p class="price">{{item.priceProduct | number:'1.0-0'}} <span>₫</span></p>
+        <p class="clearance">{{ item.categoryProduct?.nameCategory || item.categoryProduct || '' }}</p>
+        <p>{{item.nameProduct}}</p>
+      </a>
+    </div>
+
+    <button class="slider-btn next">❯</button>
+  </div>
+</section>

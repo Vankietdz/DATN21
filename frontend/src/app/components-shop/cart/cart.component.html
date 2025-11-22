@@ -1,0 +1,76 @@
+<main class="cart-page">
+  <div class="cart-container">
+
+    <!-- LEFT -->
+    <div class="cart-left">
+      <div class="cart-alert">
+        <span>🔥 Items May Sell Out, Order Now!</span>
+      </div>
+
+      <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+
+        <!-- Image -->
+        <div class="cart-item-image">
+          <img [src]="item.image" alt="">
+        </div>
+
+        <!-- Info -->
+        <div class="cart-item-info">
+          <h3>{{ item.name }}</h3>
+
+          <div class="cart-quantity">
+            <label>Quantity</label>
+            <select [(ngModel)]="item.quantity" (change)="updateQuantity(item, item.quantity)">
+              <option *ngFor="let q of [1,2,3,4,5,6,7,8,9,10]" [value]="q">{{ q }}</option>
+            </select>
+          </div>
+
+          <p class="cart-shipping">
+            This item will ship within 1 business day.
+          </p>
+        </div>
+
+        <!-- Price + Remove -->
+        <div class="cart-item-price">
+          <p>£{{ item.price | number:'1.0-0' }}</p>
+
+          <button class="cart-remove" (click)="removeItem(item._id)">×</button>
+        </div>
+
+      </div>
+
+      <p *ngIf="cartItems.length === 0" style="padding: 20px;">🛒 Giỏ hàng trống!</p>
+    </div>
+
+    <!-- RIGHT: Summary -->
+    <div class="cart-right">
+
+      <div class="order-summary">
+        <h4>Order Summary</h4>
+
+        <div class="summary-item">
+          <span>Item Total</span>
+          <span>£{{ total | number:'1.0-0' }}</span>
+        </div>
+
+        <hr />
+
+        <div *ngIf="coupons && coupons.length">
+          <label>Voucher có thể áp dụng:</label>
+          <div *ngFor="let c of coupons">
+            <small>{{ c.nameCoupon }} - giảm {{ c.discount }}% (min {{ c.minPrice }})</small>
+            <button class="btn btn-sm btn-link" (click)="applyCoupon(c._id)" [disabled]="couponApplying">Áp dụng</button>
+          </div>
+        </div>
+
+        <div class="summary-item total">
+          <span>Cart Total</span>
+          <span>£{{ total | number:'1.0-0' }}</span>
+        </div>
+        <button class="checkout-btn" (click)="goToPayment()">🔒 Checkout</button>
+      </div>
+
+      <a routerLink="/all-product" class="continue-shopping">CONTINUE SHOPPING</a>
+    </div>
+  </div>
+</main>

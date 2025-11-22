@@ -1,0 +1,101 @@
+<div class="container">
+
+  <!-- LEFT -->
+  <div class="left-section">
+
+    <form [formGroup]="paymentForm" (ngSubmit)="onPayment()">
+
+      <h2>Giao hàng</h2>
+
+      <select>
+        <option>Vietnam</option>
+      </select>
+
+      <input type="text" placeholder="Họ tên" formControlName="fullname" />
+      <input type="text" placeholder="Email" formControlName="email" />
+      <input type="text" placeholder="Số điện thoại" formControlName="phone" />
+
+      <!-- ĐỊA CHỈ -->
+      <select formControlName="province" (change)="onProvinceChange($event)">
+        <option value="">Tỉnh/Thành phố</option>
+        <option *ngFor="let p of provinces" [value]="p.code">{{ p.name }}</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <select formControlName="district" (change)="onDistrictChange($event)">
+            <option value="">Quận/Huyện</option>
+            <option *ngFor="let d of districts" [value]="d.code">{{ d.name }}</option>
+          </select>
+        </div>
+
+        <div>
+          <select formControlName="ward">
+            <option value="">Phường/Xã</option>
+            <option *ngFor="let w of wards" [value]="w.name">{{ w.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <textarea placeholder="Ghi chú đơn hàng"></textarea>
+
+      <h3>Phương thức thanh toán</h3>
+
+      <div class="shipping-box">
+
+        <!-- COD -->
+        <label class="shipping-option">
+          <input type="radio" formControlName="paymentMethod" value="COD">
+          <div class="shipping-content">
+            <img src="https://cdn-icons-png.flaticon.com/512/2303/2303826.png">
+            <div class="shipping-info">
+              <span>Thanh toán khi nhận hàng (COD)</span>
+            </div>
+          </div>
+        </label>
+
+        <!-- BANK -->
+        <form (ngSubmit)="onVNPay()" class="shipping-option">
+          <button type="submit" class="btn btn-primary">Thanh toan vnpay</button>
+        </form>
+
+      </div>
+
+      <!-- NÚT THANH TOÁN -->
+      <button class="pay-btn" type="submit" [disabled]="paymentForm.invalid">
+        Thanh toán ngay
+      </button>
+
+    </form>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right-section">
+    <h2>Tổng quan đơn hàng</h2>
+
+    <div class="product-item" *ngFor="let item of cartItems">
+      <img [src]="item.image">
+      <div>
+        <p>{{ item.fullname || item.name }}</p>
+        <small>Size: {{ item.size }}</small>
+        <small>SL: {{ item.quantity }}</small>
+      </div>
+      <strong>{{ item.price * item.quantity | number:'1.0-0' }} VND</strong>
+    </div>
+
+    <h3>Voucher bạn có</h3>
+    <div class="voucher">
+      <input type="text" placeholder="Mã giảm giá" />
+      <button class="apply-btn">Áp dụng</button>
+    </div>
+
+    <div class="summary-list">
+      <div class="summary-line"><span>Tổng phụ</span><span>{{ total | number }} VND</span></div>
+      <div class="summary-line"><span>Giảm giá coupon</span><span>0 đ</span></div>
+    </div>
+
+    <div class="total">Tổng: {{ total | number }} VND</div>
+
+  </div>
+
+</div>

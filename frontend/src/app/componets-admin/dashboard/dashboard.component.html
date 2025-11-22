@@ -1,0 +1,57 @@
+<!-- admin-dashboard.component.html -->
+<div class="admin-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+<div class="logo">
+  <a routerLink="/home">
+    <img src="../../../public/image/logostore.svg" class="logo-admin" alt="Logo">
+  </a>
+</div>
+
+    <ul class="menu">
+      <li class="section-title">QUẢN LÝ SẢN PHẨM</li>
+      <li><a routerLink="/admin/product-list"><i class="fas fa-list"></i> Danh sách sản phẩm</a></li>
+      <li><a routerLink="/admin/product-add"><i class="fas fa-plus"></i> Thêm sản phẩm</a></li>
+
+      <li class="section-title">QUẢN LÝ DANH MỤC </li>
+      <li><a routerLink="/admin/category-list"><i class="fas fa-tags"></i> Danh mục</a></li>
+      <li><a routerLink="/admin/category-add"><i class="fas fa-plus"></i> Thêm danh mục</a></li>
+
+         <li class="section-title">QUẢN LÝ LOẠI SẢN PHẨM </li>
+      <li><a routerLink="/admin/type-list"><i class="fas fa-tags"></i> Loại sản phẩm</a></li>
+      <li><a routerLink="/admin/type-add"><i class="fas fa-plus"></i> Thêm Loại</a></li>
+
+      <li class="section-title">QUẢN LÝ TAY ĐUA MotoGP</li>
+      <li><a routerLink="/admin/rider-list"><i class="fas fa-motorcycle"></i> Danh sách tay đua</a></li>
+      <li><a routerLink="/admin/rider-add"><i class="fas fa-plus"></i> Thêm tay đua</a></li>
+
+      <li class="section-title">QUẢN LÝ NGƯỞI DÙNG</li>
+      <li><a routerLink="/admin/user-list"><i class="fas fa-users"></i> Người dùng</a></li>
+
+      <li class="section-title">QUẢN LÝ ĐƠN HÀNG</li>
+      <li><a routerLink="/admin/order-list"><i class="fas fa-shopping-cart"></i> Đơn hàng</a></li>
+
+    <li class="section-title">QUẢN LÝ VOUCHER</li>
+      <li><a routerLink="/admin/voucher-list"><i class="fas fa-tags"></i> Danh sách Voucher</a></li>
+      <li><a routerLink="/admin/voucher-add"><i class="fas fa-plus"></i> Thêm Voucher</a></li>
+
+      <li class="section-title">QUẢN LÝ LIÊN HỆ</li>
+      <li><a routerLink="/admin/contact-list"><i class="fas fa-envelope"></i> Danh sách thư</a></li>
+      <li><a routerLink="/admin/contact-infor"><i class="fas fa-map-marker-alt"></i> Địa chỉ liên hệ</a></li>
+      <!-- <li><a routerLink="/admin/contact-user"><i class="fas fa-envelope"></i> Thư người dùng</a></li> -->
+
+      <li class="section-title">QUẢN LÝ Bài Viết</li>
+      <li><a routerLink="/admin/news-list"><i class="fas fa-newspaper"></i> Bài viết</a></li>
+      <li><a routerLink="/admin/news-add"><i class="fas fa-plus"></i> Thêm bài viết</a></li>
+      <li class="section-title">Phân tích thống kê</li>
+      <!-- <li><a href="/#"><i class="fas fa-chart-line"></i> ????</a></li> -->
+      <li><a routerLink="/admin/data-analysis"><i class="fas fa-chart-line"></i> PTTK</a></li>
+
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

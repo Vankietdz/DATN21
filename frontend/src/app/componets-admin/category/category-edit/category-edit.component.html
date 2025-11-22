@@ -1,0 +1,45 @@
+<section class="middle">
+  <div class="container admin-content" id="main">
+    <div id="brand_list" class="listnhasx">
+      <h2>Chỉnh sửa danh mục</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="categoryForm" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="nameCategory" class="form-label">Tên danh mục</label>
+          <input
+            type="text"
+            id="nameCategory"
+            formControlName="nameCategory"
+            class="form-control"
+            placeholder="Nhập tên danh mục (tối thiểu 6 ký tự)"
+            [class.is-invalid]="categoryForm.get('nameCategory')?.invalid && categoryForm.get('nameCategory')?.touched"
+          />
+          <div *ngIf="categoryForm.get('nameCategory')?.errors?.['minlength'] && categoryForm.get('nameCategory')?.touched">
+            <div class="text-danger">Tên danh mục phải có ít nhất 6 ký tự.</div>
+          </div>
+          <div *ngIf="categoryForm.get('nameCategory')?.errors?.['required'] && categoryForm.get('nameCategory')?.touched">
+            <div class="text-danger">Tên danh mục không được để trống.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="imageCategory" class="form-label">Ảnh danh mục</label>
+          <input
+            type="file"
+            id="imageCategory"
+            accept="image/*"
+            class="form-control"
+            (change)="onFileSelected($event)"
+          />
+          <small class="form-text text-muted">Để trống nếu không muốn thay đổi ảnh</small>
+          <div *ngIf="imagePreview" class="mt-2">
+            <img [src]="imagePreview" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px;">
+          </div>
+        </div>
+
+        <button id="btn" class="btn btn-primary px-3" type="submit" [disabled]="categoryForm.invalid || isLoading">
+          {{ isLoading ? 'Đang cập nhật...' : 'Cập nhật' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

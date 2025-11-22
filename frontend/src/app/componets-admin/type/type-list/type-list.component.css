@@ -1,0 +1,26 @@
+.product-table {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  padding: 0 20px;
+}
+
+.table thead {
+  background-color: #0d0e0f;
+  color: white;
+}
+
+.product-table table {
+  width: 100%;
+  /* max-width: 800px; */
+  min-width: 600px;
+
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Căn giữa phần phân trang */
+.text-center.mt-3 {
+  display: flex;
+  justify-content: center;
+}

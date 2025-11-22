@@ -1,0 +1,73 @@
+.admin-wrapper {
+  display: flex;
+  height: 100vh;
+  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding: 20px 15px;
+  overflow-y: auto;
+}
+
+.logo img {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-title {
+  font-weight: bold;
+  color: #b30000;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.menu li {
+  margin-bottom: 10px;
+}
+
+.menu li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.menu li a i {
+  margin-right: 8px;
+}
+
+.menu li a:hover {
+  background-color: #f2f2f2;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+.logo-admin {
+  height: 90px;       /* chỉnh to hơn (thử 90px hoặc 100px) */
+  width: auto;        /* giữ nguyên tỉ lệ ảnh */
+  object-fit: contain;
+  display: block;
+}
+.logo {
+  display: flex;
+  align-items: center; /* căn giữa theo chiều dọc */
+}

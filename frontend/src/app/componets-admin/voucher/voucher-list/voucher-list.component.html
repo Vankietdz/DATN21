@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Danh sách Voucher</h2>
+
+  <div class="d-flex justify-content-end mb-3">
+    <button routerLink="/admin/voucher-add" class="btn btn-primary">
+      + Thêm Voucher
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="table-dark text-center">
+      <tr>
+        <th>Mã</th>
+        <th>Số tiền giảm</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of vouchers | paginate: { itemsPerPage: 5, currentPage: p }; index as i"
+        >
+        <td>{{ v.code }}</td>
+        <td *ngIf="v.type === 'percent'">
+          {{ v.discount_amount }}%
+        </td>
+        <td *ngIf="v.type === 'fixed'">
+          {{ v.discount_amount | currency:'VND':'symbol' }}
+        </td>
+
+        <td>{{ v.start_date | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ v.end_date | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" [routerLink]="['/admin/voucher-edit', v._id]">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteVoucher(v._id)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="vouchers.length === 0">
+        <td colspan="5" class="text-center text-muted py-3">Không có voucher nào để hiển thị.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

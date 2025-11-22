@@ -1,0 +1,211 @@
+<section class="middle">
+  <div class="container admin-content" id="main">
+    <div id="brand_list" class="listnhasx">
+      <h2>Thêm sản phẩm</h2>
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
+        <!-- Tên sản phẩm -->
+        <div class="mb-3">
+          <label for="nameProduct" class="form-label">Tên sản phẩm</label>
+          <input
+            type="text"
+            id="nameProduct"
+            formControlName="nameProduct"
+            class="form-control"
+            placeholder="Nhập tên sản phẩm"
+            [class.is-invalid]="productForm.get('nameProduct')?.invalid && productForm.get('nameProduct')?.touched"
+          />
+          <div *ngIf="productForm.get('nameProduct')?.errors?.['required'] && productForm.get('nameProduct')?.touched" class="text-danger">
+            Tên sản phẩm không được để trống.
+          </div>
+        </div>
+
+        <!-- Giá và giảm giá -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="priceProduct" class="form-label">Giá sản phẩm</label>
+            <input
+              type="number"
+              id="priceProduct"
+              formControlName="priceProduct"
+              class="form-control"
+              placeholder="Giá"
+              min="10"
+              [class.is-invalid]="productForm.get('priceProduct')?.invalid && productForm.get('priceProduct')?.touched"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="discountProduct" class="form-label">Giảm giá (%)</label>
+            <input
+              type="number"
+              id="discountProduct"
+              formControlName="discountProduct"
+              class="form-control"
+              placeholder="Giảm giá"
+              min="0"
+              max="100"
+            />
+          </div>
+        </div>
+
+        <!-- Số lượng tổng (nếu không có size) -->
+        <div class="mb-3" *ngIf="!hasSize">
+          <label for="stockProduct" class="form-label">Số lượng tồn kho</label>
+          <input
+            type="number"
+            id="stockProduct"
+            formControlName="stockProduct"
+            class="form-control"
+            placeholder="Số lượng"
+            min="0"
+          />
+        </div>
+
+        <!-- Mô tả -->
+        <div class="mb-3">
+          <label for="descriptionProduct" class="form-label">Mô tả sản phẩm</label>
+          <textarea
+            id="descriptionProduct"
+            formControlName="descriptionProduct"
+            class="form-control"
+            rows="4"
+            placeholder="Mô tả sản phẩm"
+            [class.is-invalid]="productForm.get('descriptionProduct')?.invalid && productForm.get('descriptionProduct')?.touched"
+          ></textarea>
+        </div>
+
+        <!-- Dropdown category -->
+        <div class="mb-3">
+          <label for="categoryProduct" class="form-label">Danh mục</label>
+          <select
+            id="categoryProduct"
+            formControlName="categoryProduct"
+            class="form-control"
+            [class.is-invalid]="productForm.get('categoryProduct')?.invalid && productForm.get('categoryProduct')?.touched"
+          >
+            <option value="">-- Chọn danh mục --</option>
+            <option *ngFor="let c of categories" [value]="c._id">{{ c.nameCategory }}</option>
+          </select>
+        </div>
+
+        <!-- Dropdown type -->
+        <div class="mb-3">
+          <label for="typeProduct" class="form-label">Loại sản phẩm (tùy chọn)</label>
+          <select
+            id="typeProduct"
+            formControlName="typeProduct"
+            class="form-control"
+          >
+            <option value="">-- Chọn loại (không bắt buộc) --</option>
+            <option *ngFor="let t of types" [value]="t._id">{{ t.nameType }}</option>
+          </select>
+        </div>
+
+        <!-- Dropdown rider (không bắt buộc) -->
+        <div class="mb-3">
+          <label for="riderProduct" class="form-label">Tay đua (tùy chọn)</label>
+          <select
+            id="riderProduct"
+            formControlName="riderProduct"
+            class="form-control"
+          >
+            <option value="">-- Không chọn --</option>
+            <option *ngFor="let r of riders" [value]="r._id">{{ r.nameRider }}</option>
+          </select>
+        </div>
+
+        <!-- Checkbox có size hay không -->
+        <div class="mb-3">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="hasSize"
+              formControlName="hasSize"
+            />
+            <label class="form-check-label" for="hasSize">
+              Sản phẩm có size (ví dụ: quần áo có S, M, L)
+            </label>
+          </div>
+          <small class="form-text text-muted">
+            Bỏ chọn nếu sản phẩm không có size (ví dụ: mũ, phụ kiện)
+          </small>
+        </div>
+
+        <!-- FormArray size - chỉ hiển thị khi hasSize = true -->
+        <div class="mb-3" *ngIf="hasSize">
+          <label class="form-label">Quản lý size và số lượng</label>
+          <div formArrayName="sizes">
+            <div *ngFor="let _ of sizes.controls; let i = index" [formGroupName]="i" class="row mb-2">
+              <div class="col-md-5">
+                <select formControlName="name" class="form-control">
+                  <option value="">-- Chọn size --</option>
+                  <option *ngFor="let s of sizeOptions" [value]="s">{{ s }}</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <input
+                  type="number"
+                  formControlName="stock"
+                  class="form-control"
+                  placeholder="Số lượng"
+                  min="0"
+                />
+              </div>
+              <div class="col-md-2">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  (click)="removeSize(i)"
+                  *ngIf="sizes.length > 1"
+                >
+                  Xóa
+                </button>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm"
+              (click)="addSize()"
+            >
+              + Thêm size
+            </button>
+
+            <div class="mt-2">
+              <strong>Tổng tồn kho:</strong> {{ totalStock }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload ảnh -->
+        <div class="mb-3">
+          <label class="form-label">Ảnh sản phẩm (có thể chọn nhiều ảnh)</label>
+          <input
+            type="file"
+            class="form-control"
+            accept="image/*"
+            multiple
+            (change)="onFileSelected($event, 0)"
+          />
+          <small class="form-text text-muted">Có thể chọn nhiều ảnh cùng lúc</small>
+          <div *ngIf="imagePreviews.length > 0" class="mt-2">
+            <div class="row">
+              <div class="col-md-3 mb-2" *ngFor="let preview of imagePreviews; let i = index">
+                <img [src]="preview" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 4px;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="btn btn-primary px-3"
+          [disabled]="productForm.invalid || isLoading"
+        >
+          {{ isLoading ? 'Đang thêm...' : 'Thêm sản phẩm' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

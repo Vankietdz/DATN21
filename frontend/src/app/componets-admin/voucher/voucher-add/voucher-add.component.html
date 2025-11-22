@@ -1,0 +1,56 @@
+<div class="container mt-3">
+  <h2>Thêm Voucher</h2>
+  <form (ngSubmit)="addVoucher()" #voucherForm="ngForm">
+    <div class="mb-3">
+      <label for="code" class="form-label">Mã Voucher</label>
+      <input type="text" id="code" class="form-control" [(ngModel)]="voucher.code" name="code" required />
+    </div>
+    <div class="mb-3">
+      <label for="type" class="form-label">Giảm theo</label>
+      <select class="form-control" id="type" [(ngModel)]="voucher.type" name="type">
+        <option value="percent">Phần trăm (%)</option>
+        <option value="fixed">Số tiền cố định (VND)</option>
+      </select>
+      <!-- <p>Loại giảm giá đang chọn: {{ voucher.type }}</p> -->
+    </div>
+    <div class="mb-3">
+      <label for="discount" class="form-label">Giảm giá</label>
+      <input type="number" id="discount" class="form-control" [(ngModel)]="voucher.discount_amount"
+        (ngModelChange)="validateDiscount()" name="discount_amount" required min="0" />
+      <div *ngIf="errorMessage1" class="alert alert-danger mt-2">
+        {{ errorMessage1 }}
+      </div>
+
+    </div>
+
+
+
+    <div class="mb-3">
+      <label for="start_date" class="form-label">Ngày bắt đầu</label>
+      <input type="date" id="start_date" class="form-control" [(ngModel)]="voucher.create_start_date"
+        (ngModelChange)="makeThemSame($event)" name="create_start_date" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="end_date" class="form-label">Ngày kết thúc</label>
+      <input type="date" id="end_date" class="form-control" [(ngModel)]="voucher.end_date"
+        (ngModelChange)="validateDate()" name="end_date" required />
+    </div>
+    <div *ngIf="errorMessage2" class="alert alert-danger mt-2">
+      {{ errorMessage2 }}
+    </div>
+
+
+    <div class="d-flex justify-content-between mt-3">
+      <button type="button" class="btn btn-secondary" (click)="goToVoucherList()">
+        Quay về danh sách
+      </button>
+
+      <button type="submit" class="btn btn-success"
+        [disabled]="voucherForm.invalid || errorMessage1 !== '' || errorMessage2 !== ''">
+        Lưu thay đổi
+      </button>
+    </div>
+
+  </form>
+</div>

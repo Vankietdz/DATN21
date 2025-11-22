@@ -1,0 +1,84 @@
+<div class="top-bar">
+    <button class="signup">SIGN UP & SAVE 10%</button>
+    <div class="top-right">
+    <ng-container *ngIf="!isLogin">
+      <a [routerLink]="['/store']" routerLinkActive="router-link-active">Home |</a>
+      <a href="#">Track Order</a>
+      <a href="#">| Help</a>
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active">| Login |</a>
+      <a [routerLink]="['/register']" routerLinkActive="router-link-active">Register </a>
+      <a class="cart" [routerLink]="['/cart']" routerLinkActive="router-link-active" >🛒</a>
+    </ng-container>
+
+    <!-- ĐÃ LOGIN -->
+ <ng-container *ngIf="isLogin">
+  <a [routerLink]="['/store']" routerLinkActive="router-link-active">Home |</a>
+
+  <span>Welcome, {{ isLogin.fullName }} |</span>
+
+  <!-- Nếu là admin thì hiện thêm link quản trị -->
+  <a *ngIf="isADM" [routerLink]="['/admin']" routerLinkActive="router-link-active">
+    Admin Panel |
+  </a>
+
+  <a (click)="onLogout()" style="cursor:pointer;">Logout</a>
+
+ <a class="cart" [routerLink]="['/cart']" routerLinkActive="router-link-active" >🛒</a>
+</ng-container>
+</div>
+
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="logo">
+      <img src="/public/image/logostore.svg" alt="MGP Store Logo" />
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="What can we help you find?" />
+      <button>🔍</button>
+    </div>
+  </header>
+ <nav class="main-nav">
+    <ul>
+      <li class="menu-item">
+        <a href="#">SHOP BY TEAM</a>
+        <div class="submenu">
+          <div class="submenu-column">
+            <h4>Aprilia Racing</h4>
+            <a href="#">Team Apparel</a>
+            <a href="#">Caps</a>
+            <a href="#">Jackets</a>
+            <a href="#">Accessories</a>
+          </div>
+          <div class="submenu-column">
+            <h4>Ducati Lenovo</h4>
+            <a href="#">T-Shirts</a>
+            <a href="#">Hoodies</a>
+            <a href="#">Bags</a>
+            <a href="#">Posters</a>
+          </div>
+          <div class="submenu-column">
+            <h4>Yamaha Factory</h4>
+            <a href="#">Rider Gear</a>
+            <a href="#">Caps</a>
+            <a href="#">Gloves</a>
+            <a href="#">Keychains</a>
+          </div>
+          <div class="submenu-column">
+            <h4>Red Bull KTM</h4>
+            <a href="#">Shirts</a>
+            <a href="#">Sweatshirts</a>
+            <a href="#">Stickers</a>
+            <a href="#">Helmets</a>
+          </div>
+        </div>
+      </li>
+      <!--  -->
+
+      <!--  -->
+      <li *ngFor="let item of categories"><a [routerLink]="['/allproduct']" [queryParams]="{category: item._id}" routerLinkActive="router-link-active" >{{item.nameCategory}}</a></li>
+      <!--  -->
+      <li><a [routerLink]="['/news']" routerLinkActive="router-link-active" >NEWS</a></li>
+    </ul>
+  </nav>

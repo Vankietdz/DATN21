@@ -1,0 +1,72 @@
+<br>
+<!-- product -->
+ <!-- Product Listing Section -->
+<main class="store-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h4>Teams</h4>
+    <ul>
+      <li><label><input type="checkbox"> Aprilia Racing</label></li>
+      <li><label><input type="checkbox"> Ducati Corse</label></li>
+      <li><label><input type="checkbox"> Ducati Lenovo</label></li>
+      <li><label><input type="checkbox"> Honda HRC CASTROL</label></li>
+      <li><label><input type="checkbox"> Monster Energy Yamaha</label></li>
+      <li><label><input type="checkbox"> MotoGP Merchandise</label></li>
+      <li><label><input type="checkbox"> MotoGP Riders</label></li>
+      <li><label><input type="checkbox"> VR46 Racing</label></li>
+    </ul>
+
+    <h4>Riders</h4>
+    <ul>
+      <li><label><input type="checkbox"> Álex Márquez</label></li>
+      <li><label><input type="checkbox"> Fabio Quartararo</label></li>
+      <li><label><input type="checkbox"> Francesco Bagnaia</label></li>
+      <li><label><input type="checkbox"> Jorge Martín</label></li>
+      <li><label><input type="checkbox"> Marc Márquez</label></li>
+      <li><label><input type="checkbox"> Valentino Rossi</label></li>
+    </ul>
+  </aside>
+
+  <!-- Product section -->
+  <section class="products-section">
+    <!-- top control bar -->
+    <div class="products-topbar">
+      <span>1 - 9 of 203</span>
+      <div class="controls">
+        <select>
+          <option>Top Sellers</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest</option>
+        </select>
+        <select>
+          <option>72 Items</option>
+          <option>48 Items</option>
+          <option>24 Items</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- grid -->
+    <div class="product-grid">
+      <a *ngFor="let item of products" [routerLink]="['/product-detail/' + item._id]" routerLinkActive="router-link-active" class="product-item">
+  <img [src]="item.imagesProduct && item.imagesProduct.length ? item.imagesProduct[0] : ''" alt="{{item.nameProduct}}">
+  <p class="price">{{item.priceProduct | number:'1.0-0'}} đ</p>
+  <h5>{{item.nameProduct}}</h5>
+</a>
+
+
+
+
+    </div>
+
+    <!-- pagination -->
+    <div class="pagination">
+      <button disabled>&lt;</button>
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>&gt;</button>
+    </div>
+  </section>
+</main>

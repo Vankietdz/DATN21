@@ -1,0 +1,47 @@
+<div class="container admin-content category-popup">
+  <div id="brand_list" class="listnhasx">
+    <h2 class="mb-4">Thêm Danh Mục</h2>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="categoryForm" novalidate enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="nameCategory" class="form-label">Tên danh mục</label>
+        <input
+          type="text"
+          id="nameCategory"
+          formControlName="nameCategory"
+          class="form-control"
+          placeholder="Nhập tên danh mục (tối thiểu 6 ký tự)"
+          [class.is-invalid]="categoryForm.get('nameCategory')?.invalid && categoryForm.get('nameCategory')?.touched"
+        />
+        <div *ngIf="categoryForm.get('nameCategory')?.errors?.['minlength'] && categoryForm.get('nameCategory')?.touched">
+          <div class="text-danger mt-1">Tên danh mục phải có ít nhất 6 ký tự.</div>
+        </div>
+        <div *ngIf="categoryForm.get('nameCategory')?.errors?.['required'] && categoryForm.get('nameCategory')?.touched">
+          <div class="text-danger mt-1">Tên danh mục không được để trống.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="imageCategory" class="form-label">Ảnh danh mục</label>
+        <input
+          type="file"
+          id="imageCategory"
+          accept="image/*"
+          class="form-control"
+          (change)="onFileSelected($event)"
+          [class.is-invalid]="categoryForm.get('imageCategory')?.invalid && categoryForm.get('imageCategory')?.touched"
+        />
+        <div *ngIf="categoryForm.get('imageCategory')?.errors?.['required'] && categoryForm.get('imageCategory')?.touched">
+          <div class="text-danger mt-1">Vui lòng chọn ảnh danh mục.</div>
+        </div>
+        <div *ngIf="imagePreview" class="mt-2">
+          <img [src]="imagePreview" alt="Preview" style="max-width: 200px; max-height: 200px; border-radius: 4px;">
+        </div>
+      </div>
+
+      <button class="btn btn-primary px-4" type="submit" [disabled]="categoryForm.invalid || !selectedFile">
+        Thêm
+      </button>
+    </form>
+  </div>
+</div>
